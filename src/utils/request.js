@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../store'
 
 const http = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -7,6 +8,8 @@ const http = axios.create({
 
 http.interceptors.request.use(
   function (config) {
+    const token = store.state.token
+    config.headers.Authorization = 'Bearer ' + token
     return config
   },
   function (error) {
@@ -16,7 +19,7 @@ http.interceptors.request.use(
 
 http.interceptors.response.use(
   function (response) {
-    return response
+    return response.data
   },
   function (error) {
     return Promise.reject(error)
