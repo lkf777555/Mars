@@ -3,6 +3,14 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 const routes = [
   {
+    path: '/:catchAll(.*)', // 不识别的path自动匹配404
+    redirect: '/404' // 重定向
+  },
+  {
+    path: '/404',
+    component: () => import('../views/404')
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('../views/login')
